@@ -34,7 +34,7 @@ ROOT_URLCONF = 'pyme_ledger_pos.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'frontend' / 'dist'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -54,10 +54,8 @@ TIME_ZONE = 'America/Lima'
 USE_I18N = True
 USE_TZ = True
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'frontend' / 'dist',
-]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = []
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_ALL_ORIGINS = True # Para facilitar el MVP

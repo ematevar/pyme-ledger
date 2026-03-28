@@ -22,7 +22,7 @@
 2026-01-01 open Assets:PE:12:1212:Clientes:Emitidas:Local          PEN
 
 ;; 20 - Mercaderías (Existencias)
-2026-01-01 open Assets:PE:20:2011:Mercaderias:Almacen:General      PEN
+2026-01-01 open Assets:PE:20:2011:Mercaderias:Almacen:General      
 
 ;; 33 - Inmuebles, Maquinaria y Equipo (Activo Fijo)
 2026-01-01 open Assets:PE:33:3331:Equipos:Explotacion:Maquinas     PEN
@@ -57,18 +57,18 @@
 ;; ===================================================================
 
 ;; 60 - Compras
-2026-01-01 open Expenses:PE:60:6011:Compras:Mercaderias           PEN
+2026-01-01 open Expenses:PE:60:6011:Compras:Mercaderias           
 
 ;; 61 - Variación de Existencias (Puente entre Gasto y Activo)
-2026-01-01 open Income:PE:61:6111:Variacion:Mercaderias           PEN
+2026-01-01 open Income:PE:61:6111:Variacion:Mercaderias           
 
 ;; 62 - Gastos de Personal (Planilla)
-2026-01-01 open Expenses:PE:62:6211:Sueldos:Salarios              PEN
+2026-01-01 open Expenses:PE:62:6211:Sueldos:Salarios              
 
 ;; 63 - Gastos de Servicios de Terceros
-2026-01-01 open Expenses:PE:63:6311:Servicios:Alquileres          PEN
-2026-01-01 open Expenses:PE:63:6341:Servicios:Mantenimiento       PEN
-2026-01-01 open Expenses:PE:63:6391:Servicios:Comisiones-API      PEN
+2026-01-01 open Expenses:PE:63:6311:Servicios:Alquileres          
+2026-01-01 open Expenses:PE:63:6341:Servicios:Mantenimiento       
+2026-01-01 open Expenses:PE:63:6391:Servicios:Comisiones-API      
 
 ;; 69 - Costo de Ventas
 2026-01-01 open Expenses:PE:69:6911:CostoVentas:Mercaderias       PEN
