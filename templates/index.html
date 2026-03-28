@@ -50,13 +50,12 @@
                             <NavItem active={view==='pos'} onClick={()=>setView('pos')} label="Venta (POS)" />
                             <NavItem active={view==='inventory'} onClick={()=>setView('inventory')} label="Inventario" />
                         </nav>
-                        <div class="absolute bottom-6 left-6 text-xs text-slate-500">v2.0 Simplificado</div>
                     </div>
 
                     <div class="ml-64 p-10 w-full">
                         {view === 'dashboard' && <Dashboard data={data} />}
                         {view === 'pos' && <POS products={data.products} onSale={refreshData} />}
-                        {view === 'inventory' && <Inventory items={data.products} totalValue={data.financial_data} />}
+                        {view === 'inventory' && <Inventory items={data.products} />}
                     </div>
                 </div>
             );
@@ -72,33 +71,38 @@
             const pen = data?.metrics?.PEN || {};
             return (
                 <div class="animate-in fade-in duration-500">
-                    <h2 class="text-3xl font-bold text-slate-800 mb-8">Estado Financiero Real</h2>
-                    <div class="grid grid-cols-4 gap-6 mb-10">
-                        <StatCard label="Total Activos" val={pen.totalAssets} />
-                        <StatCard label="Efectivo" val={pen.cash} color="text-green-600" />
-                        <StatCard label="Inventario" val={pen.inventory} color="text-blue-600" />
-                        <StatCard label="Patrimonio" val={pen.totalEquity} />
+                    <h2 class="text-3xl font-bold text-slate-800 mb-8">Dashboard Financiero</h2>
+                    
+                    {/* Fila 1: Activos y Utilidad */}
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div class="bg-blue-600 p-8 rounded-3xl shadow-xl text-white">
+                            <p class="text-blue-100 text-xs uppercase font-bold tracking-wider mb-2">Total Activos (Caja + Stock)</p>
+                            <p class="text-4xl font-extrabold">S/ {pen.totalAssets?.toLocaleString()}</p>
+                        </div>
+                        <div class="bg-emerald-600 p-8 rounded-3xl shadow-xl text-white">
+                            <p class="text-emerald-100 text-xs uppercase font-bold tracking-wider mb-2">Utilidad Neta (Ganancia)</p>
+                            <p class="text-4xl font-extrabold">S/ {pen.netProfit?.toLocaleString()}</p>
+                        </div>
+                    </div>
+
+                    {/* Fila 2: Detalles */}
+                    <div class="grid grid-cols-3 gap-6 mb-10">
+                        <StatCard label="Efectivo en Caja" val={pen.cash} icon="💰" />
+                        <StatCard label="Valor Inventario" val={pen.inventory} icon="📦" />
+                        <StatCard label="Patrimonio Total" val={pen.totalEquity} icon="📈" />
                     </div>
 
                     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                         <div class="p-6 border-b border-slate-100 bg-slate-50">
-                            <h3 class="font-bold text-slate-700">Libro Diario (Últimos Movimientos)</h3>
+                            <h3 class="font-bold text-slate-700">Últimos Movimientos Contables</h3>
                         </div>
                         <table class="w-full text-left">
-                            <thead>
-                                <tr class="text-xs uppercase text-slate-400 bg-slate-50">
-                                    <th class="px-6 py-3">Fecha</th>
-                                    <th class="px-6 py-3">Descripción</th>
-                                    <th class="px-6 py-3">Cuenta Destino</th>
-                                    <th class="px-6 py-3 text-right">Monto</th>
-                                </tr>
-                            </thead>
                             <tbody class="divide-y divide-slate-100">
                                 {data.recent_transactions.map((t, i) => (
                                     <tr key={i} class="hover:bg-slate-50 transition-colors">
                                         <td class="px-6 py-4 text-sm text-slate-500">{t.date.day} {t.date.month}</td>
                                         <td class="px-6 py-4 text-sm font-semibold text-slate-800">{t.description}</td>
-                                        <td class="px-6 py-4 text-xs font-mono text-blue-600 bg-blue-50/50 inline-block m-4 rounded">{t.account}</td>
+                                        <td class="px-6 py-4 text-xs font-mono text-blue-600">{t.account}</td>
                                         <td class={`px-6 py-4 text-right font-bold ${t.type==='credit'?'text-green-600':'text-red-600'}`}>
                                             {t.type==='credit'?'+':'-'} {t.currency} {t.amount.toFixed(2)}
                                         </td>
@@ -111,10 +115,13 @@
             );
         };
 
-        const StatCard = ({ label, val, color="text-slate-800" }) => (
+        const StatCard = ({ label, val, icon }) => (
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                <p class="text-slate-400 text-xs uppercase font-bold tracking-wider mb-2">{label}</p>
-                <p class={`text-3xl font-bold ${color}`}>S/ {val?.toLocaleString()}</p>
+                <div class="flex justify-between items-start mb-4">
+                    <p class="text-slate-400 text-xs uppercase font-bold tracking-wider">{label}</p>
+                    <span class="text-xl">{icon}</span>
+                </div>
+                <p class="text-2xl font-bold text-slate-800 text-slate-800">S/ {val?.toLocaleString()}</p>
             </div>
         );
 
@@ -149,68 +156,51 @@
                 });
                 if (res.ok) {
                     setMsg('✅ Venta registrada con éxito!');
-                    onSale(); // Refresh global data
+                    onSale();
                 }
             };
 
             return (
                 <div class="max-w-2xl mx-auto bg-white p-10 rounded-3xl shadow-xl border border-slate-100">
-                    <h2 class="text-2xl font-bold mb-8 text-center">Punto de Venta (Salida de Almacén)</h2>
+                    <h2 class="text-2xl font-bold mb-8 text-center">Punto de Venta</h2>
                     <form onSubmit={sell} class="space-y-6">
                         <div class="grid grid-cols-2 gap-4">
-                            <div class="space-y-1">
-                                <label class="text-xs font-bold text-slate-400">RUC CLIENTE</label>
-                                <input type="text" value={ruc} onChange={e=>setRuc(e.target.value)} class="w-full p-3 border rounded-xl bg-slate-50 focus:ring-2 ring-blue-500 outline-none" placeholder="20..." required />
-                            </div>
-                            <div class="space-y-1">
-                                <label class="text-xs font-bold text-slate-400">NRO FACTURA</label>
-                                <input type="text" value={inv} onChange={e=>setInv(e.target.value)} class="w-full p-3 border rounded-xl bg-slate-50 focus:ring-2 ring-blue-500 outline-none" placeholder="F001-0001" required />
-                            </div>
+                            <input type="text" value={ruc} onChange={e=>setRuc(e.target.value)} class="p-3 border rounded-xl bg-slate-50 outline-none focus:ring-2 ring-blue-500" placeholder="RUC Cliente" required />
+                            <input type="text" value={inv} onChange={e=>setInv(e.target.value)} class="p-3 border rounded-xl bg-slate-50 outline-none focus:ring-2 ring-blue-500" placeholder="Factura" required />
                         </div>
-
                         <div class="p-6 bg-blue-50 rounded-2xl space-y-4">
-                            <div class="space-y-1">
-                                <label class="text-xs font-bold text-blue-400 uppercase">Seleccionar Producto en Stock</label>
-                                <select value={selectedSku} onChange={e=>setSelectedSku(e.target.value)} class="w-full p-3 border-none rounded-xl bg-white shadow-sm font-semibold text-slate-700">
-                                    {products.map(p => (
-                                        <option key={p.sku} value={p.sku}>{p.name} (Disp: {p.stock})</option>
-                                    ))}
-                                </select>
-                            </div>
+                            <select value={selectedSku} onChange={e=>setSelectedSku(e.target.value)} class="w-full p-3 rounded-xl border-none shadow-sm font-semibold">
+                                {products.map(p => (
+                                    <option key={p.sku} value={p.sku}>{p.name} (Stock: {p.stock})</option>
+                                ))}
+                            </select>
                             {selectedProd && (
-                                <div class="flex justify-between items-center text-sm">
-                                    <span class="text-blue-600 font-bold">PRECIO UNIT: S/ {selectedProd.price.toFixed(2)}</span>
-                                    <div class="flex items-center gap-3">
-                                        <label class="font-bold text-slate-500">CANT:</label>
-                                        <input type="number" value={qty} onChange={e=>setQty(e.target.value)} min="1" max={selectedProd.stock} class="w-20 p-2 rounded-lg border-none shadow-sm text-center font-bold" />
-                                    </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-blue-600 font-bold text-lg">S/ {selectedProd.price.toFixed(2)}</span>
+                                    <input type="number" value={qty} onChange={e=>setQty(e.target.value)} min="1" max={selectedProd.stock} class="w-24 p-2 rounded-lg text-center font-bold" />
                                 </div>
                             )}
                         </div>
-
-                        <div class="pt-4 border-t border-slate-100 flex justify-between items-center">
-                            <div class="text-2xl font-bold text-slate-800">TOTAL: S/ {(selectedProd?.price * qty || 0).toFixed(2)}</div>
-                            <button class="bg-blue-600 text-white px-8 py-3 rounded-2xl font-bold shadow-lg hover:bg-blue-700 transition-all transform hover:scale-105 active:scale-95">EMITIR VENTA</button>
-                        </div>
+                        <button class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-blue-700 transition-all">EMITIR VENTA: S/ {(selectedProd?.price * qty || 0).toFixed(2)}</button>
                     </form>
-                    {msg && <div class={`mt-6 p-4 rounded-xl text-center font-bold ${msg.includes('❌')?'bg-red-50 text-red-600':'bg-green-50 text-green-600 animate-bounce'}`}>{msg}</div>}
+                    {msg && <div class={`mt-6 p-4 rounded-xl text-center font-bold ${msg.includes('❌')?'bg-red-50 text-red-600':'bg-green-50 text-green-600'}`}>{msg}</div>}
                 </div>
             );
         };
 
         const Inventory = ({ items }) => (
-            <div class="bg-white rounded-2xl shadow-sm border p-8">
-                <h2 class="text-2xl font-bold mb-8">Inventario Actual (Kardex Valorizado)</h2>
-                <div class="grid grid-cols-1 gap-4">
+            <div class="bg-white rounded-3xl shadow-sm border p-8">
+                <h2 class="text-2xl font-bold mb-8">Kardex de Mercaderías</h2>
+                <div class="space-y-4">
                     {items.map(item => (
                         <div key={item.sku} class="flex items-center justify-between p-6 bg-slate-50 rounded-2xl border border-slate-100">
                             <div>
                                 <h4 class="font-bold text-slate-800">{item.name}</h4>
-                                <p class="text-xs text-slate-400 font-mono">{item.sku}</p>
+                                <p class="text-xs text-slate-400">{item.sku}</p>
                             </div>
                             <div class="text-right">
-                                <p class="text-xl font-bold text-slate-900">{item.stock} Unidades</p>
-                                <p class="text-xs font-bold text-blue-600">Valor Estimado: S/ {(item.stock * item.price).toFixed(2)}</p>
+                                <p class="text-xl font-bold text-slate-900">{item.stock} uds.</p>
+                                <p class="text-xs font-bold text-blue-600">Costo Unit: S/ {item.cost?.toFixed(2)}</p>
                             </div>
                         </div>
                     ))}
