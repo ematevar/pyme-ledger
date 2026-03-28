@@ -1,0 +1,5 @@
+django
+djangorestframework
+beancount
+python-dateutil
+django-cors-headers

@@ -1,31 +1,16 @@
 ;; ===================================================================
-;; OPCIONES DE CONFIGURACIÓN - PYME-LEDGER
+;; PYME LEDGER - LIBRO PRINCIPAL
 ;; ===================================================================
-option "title" "Mi Bodega SAC - Sistema ERP"
-option "operating_currency" "PEN"
-option "operating_currency" "USD"
 
-;; ===================================================================
-;; IMPORTACION DE CATALOGOS
-;; ===================================================================
+;; 1. Definiciones de Monedas y Productos (Kardex)
 include "core/commodities.bean"
+
+;; 2. Plan de Cuentas (PCGE)
 include "core/accounts.bean"
 
-;; ===================================================================
-;; MOVIMIENTOS HISTORICOS Y ACTUALES
-;; ===================================================================
-include "ledger/2026/00-apertura.bean"
+;; 3. Registros de Transacciones por Año
+include "ledger/2026/inventory_examples.bean"
+include "ledger/2026/transactions.bean"
 
-;; ===================================================================
-;; EJEMPLO DE TRANSACCION COMERCIAL (DEMO HACKATHON)
-;; ===================================================================
-
-2026-03-28 * "Cliente Varios" "Venta de 10 unidades de mercadería" #venta #pos
-  documento: "FAC-001-0001"
-  Assets:PE:10:1011:Caja:Principal                 118.00 PEN
-  Income:PE:70:7011:Ventas:Mercaderias:Local      -100.00 PEN
-  Liabilities:PE:40:4011:IGV:Fiscal                -18.00 PEN
-
-2026-03-28 * "Almacén" "Reconocimiento de Costo de Ventas" #costo
-  Expenses:PE:69:6911:CostoVentas:Mercaderias       50.00 PEN
-  Assets:PE:20:2011:Mercaderias:Almacen:General    -50.00 PEN
+;; 4. Precios de Mercado (Opcional)
+;; include "prices/2026.bean"
