@@ -78,3 +78,19 @@ class CashBalanceView(APIView):
             return Response(balances, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class DashboardDataView(APIView):
+    """GET: Retorna datos consolidados y transacciones recientes para el dashboard."""
+    def get(self, request):
+        try:
+            dashboard_data = ledger.get_dashboard_data()
+            recent_transactions = ledger.get_recent_transactions(limit=5)
+            top_accounts = ledger.get_top_accounts(limit=5)
+            return Response({
+                "financial_data": dashboard_data["metrics"],
+                "evolution": dashboard_data["evolution"],
+                "recent_transactions": recent_transactions,
+                "top_accounts": top_accounts
+            }, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

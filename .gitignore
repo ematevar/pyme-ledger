@@ -1,0 +1,66 @@
+# ==============================
+# Node / Frontend (Vite/React)
+# ==============================
+node_modules/
+dist/
+dist-ssr/
+build/
+.npm/
+
+# Logs de npm/yarn
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Archivos de entorno local de Node
+frontend/.env.local
+frontend/.env.*.local
+
+# ==============================
+# Python / Django
+# ==============================
+# Archivos compilados en caché
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Entornos Virtuales
+venv/
+.venv/
+env/
+ENV/
+
+# Base de Datos de Django en desarrollo
+db.sqlite3
+db.sqlite3-journal
+
+# Archivos estáticos recolectados (opcional si usas collectstatic)
+staticfiles/
+assets_collected/
+media/
+
+# ==============================
+# Entorno General / Secretos
+# ==============================
+# Archivos de variables configurables secretas compartidas
+.env
+.env.development
+.env.production
+
+# ==============================
+# Editores y Sistema Operativo
+# ==============================
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ==============================
+# Beancount (Opcional - Quita los # si tus finanzas son privadas)
+# ==============================
+# data/*.beancount
+# data/*.pdf
+# data/*.csv
