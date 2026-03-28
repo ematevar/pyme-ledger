@@ -1,10 +1,10 @@
-# PYME-Ledger - ERP Contable Basado en Hl-PCGE
+# PYME-Ledger - ERP Contable 
 
 Sistema de contabilidad profesional para micro y pequeñas empresas (PYMES) basado en Beancount y el Plan Contable General Empresarial (PCGE) peruano.
 
 ## Diferenciales para PYMES
 
-A diferencia de la contabilidad personal, este modelo incluye el **Ciclo de Operaciones**:
+Este modelo incluye el **Ciclo de Operaciones**:
 1. **Compras (60):** Registro de mercaderías con IGV (40).
 2. **Existencias (20):** Control de inventario en almacén.
 3. **Ventas (70):** Generación de ingresos operativos.
