@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PYME-Ledger Pro</title>
+    <title>KIPU - PYME Pro</title>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap"
+        rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
     </style>
 </head>
+
 <body class="bg-gray-100 min-h-screen">
     <div id="root"></div>
 
@@ -42,13 +47,13 @@
                 <div class="flex">
                     <div class="w-64 bg-slate-900 text-white min-h-screen p-6 fixed shadow-xl">
                         <div class="mb-10">
-                            <h1 class="text-2xl font-bold tracking-tight">PYME-Ledger</h1>
+                            <h1 class="text-2xl font-bold tracking-tight">KIPU - PYME</h1>
                             <p class="text-xs text-slate-400">Motor Beancount Activo</p>
                         </div>
                         <nav class="space-y-2">
-                            <NavItem active={view==='dashboard'} onClick={()=>setView('dashboard')} label="Dashboard" />
-                            <NavItem active={view==='pos'} onClick={()=>setView('pos')} label="Venta (POS)" />
-                            <NavItem active={view==='inventory'} onClick={()=>setView('inventory')} label="Inventario" />
+                            <NavItem active={view === 'dashboard'} onClick={() => setView('dashboard')} label="Dashboard" />
+                            <NavItem active={view === 'pos'} onClick={() => setView('pos')} label="Venta (POS)" />
+                            <NavItem active={view === 'inventory'} onClick={() => setView('inventory')} label="Inventario" />
                         </nav>
                     </div>
 
@@ -72,7 +77,7 @@
             return (
                 <div class="animate-in fade-in duration-500">
                     <h2 class="text-3xl font-bold text-slate-800 mb-8">Dashboard Financiero</h2>
-                    
+
                     {/* Fila 1: Activos y Utilidad */}
                     <div class="grid grid-cols-2 gap-6 mb-6">
                         <div class="bg-blue-600 p-8 rounded-3xl shadow-xl text-white">
@@ -103,8 +108,8 @@
                                         <td class="px-6 py-4 text-sm text-slate-500">{t.date.day} {t.date.month}</td>
                                         <td class="px-6 py-4 text-sm font-semibold text-slate-800">{t.description}</td>
                                         <td class="px-6 py-4 text-xs font-mono text-blue-600">{t.account}</td>
-                                        <td class={`px-6 py-4 text-right font-bold ${t.type==='credit'?'text-green-600':'text-red-600'}`}>
-                                            {t.type==='credit'?'+':'-'} {t.currency} {t.amount.toFixed(2)}
+                                        <td class={`px-6 py-4 text-right font-bold ${t.type === 'credit' ? 'text-green-600' : 'text-red-600'}`}>
+                                            {t.type === 'credit' ? '+' : '-'} {t.currency} {t.amount.toFixed(2)}
                                         </td>
                                     </tr>
                                 ))}
@@ -142,15 +147,15 @@
                 }
                 const res = await fetch('/api/pos/sale/', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         customer_ruc: ruc,
                         invoice_no: inv,
-                        items: [{ 
-                            sku: selectedSku, 
-                            qty: parseInt(qty), 
-                            price: selectedProd.price, 
-                            cost: selectedProd.cost 
+                        items: [{
+                            sku: selectedSku,
+                            qty: parseInt(qty),
+                            price: selectedProd.price,
+                            cost: selectedProd.cost
                         }]
                     })
                 });
@@ -165,11 +170,11 @@
                     <h2 class="text-2xl font-bold mb-8 text-center">Punto de Venta</h2>
                     <form onSubmit={sell} class="space-y-6">
                         <div class="grid grid-cols-2 gap-4">
-                            <input type="text" value={ruc} onChange={e=>setRuc(e.target.value)} class="p-3 border rounded-xl bg-slate-50 outline-none focus:ring-2 ring-blue-500" placeholder="RUC Cliente" required />
-                            <input type="text" value={inv} onChange={e=>setInv(e.target.value)} class="p-3 border rounded-xl bg-slate-50 outline-none focus:ring-2 ring-blue-500" placeholder="Factura" required />
+                            <input type="text" value={ruc} onChange={e => setRuc(e.target.value)} class="p-3 border rounded-xl bg-slate-50 outline-none focus:ring-2 ring-blue-500" placeholder="RUC Cliente" required />
+                            <input type="text" value={inv} onChange={e => setInv(e.target.value)} class="p-3 border rounded-xl bg-slate-50 outline-none focus:ring-2 ring-blue-500" placeholder="Factura" required />
                         </div>
                         <div class="p-6 bg-blue-50 rounded-2xl space-y-4">
-                            <select value={selectedSku} onChange={e=>setSelectedSku(e.target.value)} class="w-full p-3 rounded-xl border-none shadow-sm font-semibold">
+                            <select value={selectedSku} onChange={e => setSelectedSku(e.target.value)} class="w-full p-3 rounded-xl border-none shadow-sm font-semibold">
                                 {products.map(p => (
                                     <option key={p.sku} value={p.sku}>{p.name} (Stock: {p.stock})</option>
                                 ))}
@@ -177,13 +182,13 @@
                             {selectedProd && (
                                 <div class="flex justify-between items-center">
                                     <span class="text-blue-600 font-bold text-lg">S/ {selectedProd.price.toFixed(2)}</span>
-                                    <input type="number" value={qty} onChange={e=>setQty(e.target.value)} min="1" max={selectedProd.stock} class="w-24 p-2 rounded-lg text-center font-bold" />
+                                    <input type="number" value={qty} onChange={e => setQty(e.target.value)} min="1" max={selectedProd.stock} class="w-24 p-2 rounded-lg text-center font-bold" />
                                 </div>
                             )}
                         </div>
                         <button class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-blue-700 transition-all">EMITIR VENTA: S/ {(selectedProd?.price * qty || 0).toFixed(2)}</button>
                     </form>
-                    {msg && <div class={`mt-6 p-4 rounded-xl text-center font-bold ${msg.includes('❌')?'bg-red-50 text-red-600':'bg-green-50 text-green-600'}`}>{msg}</div>}
+                    {msg && <div class={`mt-6 p-4 rounded-xl text-center font-bold ${msg.includes('❌') ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600'}`}>{msg}</div>}
                 </div>
             );
         };
@@ -212,4 +217,5 @@
         root.render(<App />);
     </script>
 </body>
+
 </html>

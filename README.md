@@ -1,4 +1,4 @@
-# PYME-Ledger - ERP Contable 
+# KIPU - PYME - ERP Contable 
 
 Sistema de contabilidad profesional para micro y pequeñas empresas (PYMES) basado en Beancount y el Plan Contable General Empresarial (PCGE) peruano.
 
