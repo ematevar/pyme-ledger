@@ -4,6 +4,16 @@
 
 plugin "beancount.plugins.auto_accounts"
 
+;; ===================================================================
+;; CONFIGURACIÓN DE FAVA (REPORTES VISUALES)
+;; ===================================================================
+2026-01-01 custom "fava-option" "language" "es"
+2026-01-01 custom "fava-option" "locale" "es_PE"
+2026-01-01 custom "fava-option" "auto-reload" "true"
+2026-01-01 custom "fava-option" "invert-income-liabilities-equity" "true"
+2026-01-01 custom "fava-option" "currency-column" "80"
+2026-01-01 custom "fava-option" "default-page" "balance_sheet/"
+
 ;; 1. Definiciones de Monedas y Productos (Kardex)
 include "core/commodities.bean"
 
@@ -11,6 +21,7 @@ include "core/commodities.bean"
 include "core/accounts.bean"
 
 ;; 3. Registros de Transacciones por Año
+include "ledger/2025/transactions.bean"
 include "ledger/2026/inventory_examples.bean"
 include "ledger/2026/transactions.bean"
 

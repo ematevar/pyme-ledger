@@ -12,78 +12,78 @@
 ;; ===================================================================
 
 ;; 10 - Efectivo y Equivalentes
-2026-01-01 open Assets:PE:10:1011:Caja:Principal                   PEN
-2026-01-01 open Assets:PE:10:1031:Efectivo:Transito:API-Ventas     PEN
-2026-01-01 open Assets:PE:10:1041:CuentasCorrientes:BCP:Operativa  PEN, USD
+2020-01-01 open Assets:PE:10:1011:Caja:Principal                   PEN
+2020-01-01 open Assets:PE:10:1031:Efectivo:Transito:API-Ventas     PEN
+2020-01-01 open Assets:PE:10:1041:CuentasCorrientes:BCP:Operativa  PEN, USD
 
 ;; 12 - Cuentas por Cobrar Comerciales (Clientes)
 ;; 1211: Usada por la API para registrar la venta antes del cobro real
-2026-01-01 open Assets:PE:12:1211:Clientes:NoEmitidas:API          PEN
-2026-01-01 open Assets:PE:12:1212:Clientes:Emitidas:Local          PEN
+2020-01-01 open Assets:PE:12:1211:Clientes:NoEmitidas:API          PEN
+2020-01-01 open Assets:PE:12:1212:Clientes:Emitidas:Local          PEN
 
 ;; 20 - Mercaderías (Existencias)
-2026-01-01 open Assets:PE:20:2011:Mercaderias:Almacen:General      
+2020-01-01 open Assets:PE:20:2011:Mercaderias:Almacen:General      
 
 ;; 33 - Inmuebles, Maquinaria y Equipo (Activo Fijo)
-2026-01-01 open Assets:PE:33:3331:Equipos:Explotacion:Maquinas     PEN
-2026-01-01 open Assets:PE:33:3361:Equipos:Computo:Hardware         PEN
+2020-01-01 open Assets:PE:33:3331:Equipos:Explotacion:Maquinas     PEN
+2020-01-01 open Assets:PE:33:3361:Equipos:Computo:Hardware         PEN
 
 ;; ===================================================================
 ;; PASIVOS (Elemento 4)
 ;; ===================================================================
 
 ;; 40 - Tributos, Contraprestaciones y Aportes
-2026-01-01 open Liabilities:PE:40:4011:IGV:Fiscal                  PEN
-2026-01-01 open Liabilities:PE:40:4017:Renta:TerceraCategoria      PEN
+2020-01-01 open Liabilities:PE:40:4011:IGV:Fiscal                  PEN
+2020-01-01 open Liabilities:PE:40:4017:Renta:TerceraCategoria      PEN
 
 ;; 42 - Cuentas por Pagar Comerciales (Proveedores)
-2026-01-01 open Liabilities:PE:42:4212:Proveedores:Emitidas:Varios PEN
+2020-01-01 open Liabilities:PE:42:4212:Proveedores:Emitidas:Varios PEN
 
 ;; 45 - Obligaciones Financieras
-2026-01-01 open Liabilities:PE:45:4511:Prestamos:Bancos:BCP        PEN
+2020-01-01 open Liabilities:PE:45:4511:Prestamos:Bancos:BCP        PEN
 
 ;; ===================================================================
 ;; PATRIMONIO (Elemento 5)
 ;; ===================================================================
 
 ;; 50 - Capital
-2026-01-01 open Equity:PE:50:5011:Capital:Social                  PEN
+2020-01-01 open Equity:PE:50:5011:Capital:Social                  PEN
 
 ;; 59 - Resultados Acumulados
-2026-01-01 open Equity:PE:59:5911:Resultados:Acumulados           PEN
+2020-01-01 open Equity:PE:59:5911:Resultados:Acumulados           PEN
 
 ;; ===================================================================
 ;; GASTOS POR NATURALEZA (Elemento 6)
 ;; ===================================================================
 
 ;; 60 - Compras
-2026-01-01 open Expenses:PE:60:6011:Compras:Mercaderias           
+2020-01-01 open Expenses:PE:60:6011:Compras:Mercaderias           
 
 ;; 61 - Variación de Existencias (Puente entre Gasto y Activo)
-2026-01-01 open Income:PE:61:6111:Variacion:Mercaderias           
+2020-01-01 open Income:PE:61:6111:Variacion:Mercaderias           
 
 ;; 62 - Gastos de Personal (Planilla)
-2026-01-01 open Expenses:PE:62:6211:Sueldos:Salarios              
+2020-01-01 open Expenses:PE:62:6211:Sueldos:Salarios              
 
 ;; 63 - Gastos de Servicios de Terceros
-2026-01-01 open Expenses:PE:63:6311:Servicios:Alquileres          
-2026-01-01 open Expenses:PE:63:6341:Servicios:Mantenimiento       
-2026-01-01 open Expenses:PE:63:6391:Servicios:Comisiones-API      
+2020-01-01 open Expenses:PE:63:6311:Servicios:Alquileres          
+2020-01-01 open Expenses:PE:63:6341:Servicios:Mantenimiento       
+2020-01-01 open Expenses:PE:63:6391:Servicios:Comisiones-API      
 
 ;; 69 - Costo de Ventas
-2026-01-01 open Expenses:PE:69:6911:CostoVentas:Mercaderias       PEN
+2020-01-01 open Expenses:PE:69:6911:CostoVentas:Mercaderias       PEN
 
 ;; ===================================================================
 ;; INGRESOS (Elemento 7)
 ;; ===================================================================
 
 ;; 70 - Ventas
-2026-01-01 open Income:PE:70:7011:Ventas:Mercaderias:Local        PEN
+2020-01-01 open Income:PE:70:7011:Ventas:Mercaderias:Local        PEN
 
 ;; ===================================================================
 ;; CONTABILIDAD ANALÍTICA (Elemento 9) - Centros de Costos
 ;; Permite ver la rentabilidad por área en Fava.
 ;; ===================================================================
 
-2026-01-01 open Expenses:PE:94:Gastos-Administrativos            PEN
-2026-01-01 open Expenses:PE:95:Gastos-Ventas                    PEN
+2020-01-01 open Expenses:PE:94:Gastos-Administrativos            PEN
+2020-01-01 open Expenses:PE:95:Gastos-Ventas                    PEN

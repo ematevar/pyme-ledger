@@ -1,23 +1,71 @@
-;; Transacciones generadas por API POS
+;; ===================================================================
+;; TRANSACCIONES PYME-LEDGER 2026
+;; ===================================================================
 
-2026-03-28 * "COMPRA INVENTARIO" "Factura F001-TEST"
-  ruc: "20111222333"
-  doc_type: "01"
-  invoice: "F001-TEST"
-  Expenses:PE:60:6011:Compras:Mercaderias        10 SKU-TEST-01 { 100.00 PEN }
-  Liabilities:PE:40:4011:IGV:Fiscal              180.00 PEN
-  Liabilities:PE:42:4212:Proveedores:Emitidas   -1180.00 PEN
-  Assets:PE:20:2011:Mercaderias:Almacen:General  10 SKU-TEST-01 { 100.00 PEN }
-  Income:PE:61:6111:Variacion:Mercaderias       -1000.00 PEN
+;; --- ENERO 2026: Reposición de Inventario ---
+2026-01-10 * "COMPRA STOCK AÑO NUEVO" "DISTRIBUIDORA SUR"
+  ruc: "20376543219"
+  Expenses:PE:60:6011:Compras:Mercaderias        10 SKU-MONITOR-24 { 450.00 PEN }
+  Expenses:PE:60:6011:Compras:Mercaderias        20 SKU-TECLADO-MECH { 120.00 PEN }
+  Liabilities:PE:40:4011:IGV:Fiscal              1242.00 PEN
+  Liabilities:PE:42:4212:Proveedores:Emitidas:Varios -8142.00 PEN
+  Assets:PE:20:2011:Mercaderias:Almacen:General  10 SKU-MONITOR-24 { 450.00 PEN }
+  Assets:PE:20:2011:Mercaderias:Almacen:General  20 SKU-TECLADO-MECH { 120.00 PEN }
+  Income:PE:61:6111:Variacion:Mercaderias       -6900.00 PEN
 
-2026-03-28 * "VENTA POS" "Factura F001-SALE"
-  ruc: "20999888777"
-  doc_type: "01"
-  invoice: "F001-SALE"
-  Assets:PE:10:1031:Efectivo:Transito:API-Ventas     354.00 PEN
-  Income:PE:70:7011:Ventas:Mercaderias:Local        -300.00 PEN
-  Liabilities:PE:40:4011:IGV:Fiscal                  -54.00 PEN
-  Expenses:PE:69:6911:CostoVentas:Mercaderias    200.00 PEN
-  Assets:PE:20:2011:Mercaderias:Almacen:General  -2 SKU-TEST-01 { 100.00 PEN }
+2026-01-25 * "VENTA EQUIPOS" "CLIENTE ESTUDIO"
+  ruc: "20456789123"
+  Assets:PE:10:1011:Caja:Principal                   4720.00 PEN
+  Income:PE:70:7011:Ventas:Mercaderias:Local        -4000.00 PEN
+  Liabilities:PE:40:4011:IGV:Fiscal                  -720.00 PEN
+  Expenses:PE:69:6911:CostoVentas:Mercaderias        2850.00 PEN
+  Assets:PE:20:2011:Mercaderias:Almacen:General     -5 SKU-MONITOR-24 { 450.00 PEN }
+  Assets:PE:20:2011:Mercaderias:Almacen:General     -5 SKU-TECLADO-MECH { 120.00 PEN }
 
+;; --- FEBRERO 2026: Campaña Escolar / Oficina ---
+2026-02-05 * "COMPRA SUMINISTROS" "OFFICE-PRO"
+  ruc: "20498712345"
+  Expenses:PE:60:6011:Compras:Mercaderias        10 SKU-CHAIR-OFFICE { 550.00 PEN }
+  Expenses:PE:60:6011:Compras:Mercaderias        5 SKU-DESK-WOOD { 850.00 PEN }
+  Liabilities:PE:40:4011:IGV:Fiscal              1755.00 PEN
+  Liabilities:PE:42:4212:Proveedores:Emitidas:Varios -11505.00 PEN
+  Assets:PE:20:2011:Mercaderias:Almacen:General  10 SKU-CHAIR-OFFICE { 550.00 PEN }
+  Assets:PE:20:2011:Mercaderias:Almacen:General  5 SKU-DESK-WOOD { 850.00 PEN }
+  Income:PE:61:6111:Variacion:Mercaderias       -9750.00 PEN
 
+2026-02-15 * "VENTA MOBILIARIO" "CLIENTE CORP"
+  ruc: "20567891234"
+  Assets:PE:10:1011:Caja:Principal                   9440.00 PEN
+  Income:PE:70:7011:Ventas:Mercaderias:Local        -8000.00 PEN
+  Liabilities:PE:40:4011:IGV:Fiscal                 -1440.00 PEN
+  Expenses:PE:69:6911:CostoVentas:Mercaderias        5000.00 PEN
+  Assets:PE:20:2011:Mercaderias:Almacen:General     -6 SKU-CHAIR-OFFICE { 550.00 PEN }
+  Assets:PE:20:2011:Mercaderias:Almacen:General     -2 SKU-DESK-WOOD { 850.00 PEN }
+
+;; --- MARZO 2026: Operaciones Actuales ---
+2026-03-10 * "COMPRA ACCESORIOS" "GLOBAL-NET"
+  ruc: "20543219876"
+  Expenses:PE:60:6011:Compras:Mercaderias        50 SKU-CABLE-HDMI-2M { 15.00 PEN }
+  Expenses:PE:60:6011:Compras:Mercaderias        5 SKU-UPS-1000VA { 400.00 PEN }
+  Liabilities:PE:40:4011:IGV:Fiscal              495.00 PEN
+  Liabilities:PE:42:4212:Proveedores:Emitidas:Varios -3245.00 PEN
+  Assets:PE:20:2011:Mercaderias:Almacen:General  50 SKU-CABLE-HDMI-2M { 15.00 PEN }
+  Assets:PE:20:2011:Mercaderias:Almacen:General  5 SKU-UPS-1000VA { 400.00 PEN }
+  Income:PE:61:6111:Variacion:Mercaderias       -2750.00 PEN
+
+2026-03-20 * "VENTA ACCESORIOS" "VARIOS"
+  ruc: "20123456781"
+  Assets:PE:10:1011:Caja:Principal                   1180.00 PEN
+  Income:PE:70:7011:Ventas:Mercaderias:Local        -1000.00 PEN
+  Liabilities:PE:40:4011:IGV:Fiscal                  -180.00 PEN
+  Expenses:PE:69:6911:CostoVentas:Mercaderias        550.00 PEN
+  Assets:PE:20:2011:Mercaderias:Almacen:General     -10 SKU-CABLE-HDMI-2M { 15.00 PEN }
+  Assets:PE:20:2011:Mercaderias:Almacen:General     -1 SKU-UPS-1000VA { 400.00 PEN }
+
+2026-03-28 * "VENTA POS" "Doc: F001-002"
+  customer: "20201299334"
+  Assets:PE:10:1011:Caja:Efectivo             3016.00 PEN
+  Income:PE:70:7011:Ventas:Mercaderias     -2473.12 PEN
+  Liabilities:PE:40:4011:IGV:Fiscal         -542.88 PEN
+  Expenses:PE:69:6911:CostoVentas            2320.00 PEN
+  Assets:PE:20:2011:Mercaderias             -1 SKU-LAPTOP-01 { 2320.00 PEN }

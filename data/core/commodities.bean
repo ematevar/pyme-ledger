@@ -5,18 +5,54 @@
 option "operating_currency" "PEN"
 option "operating_currency" "USD"
 
-2026-01-01 commodity PEN
+2020-01-01 commodity PEN
   name: "Sol Peruano"
   precision: 2
 
-2026-01-01 commodity SKU-LAPTOP-01
+2020-01-01 commodity SKU-LAPTOP-01
   name: "Laptop Pro Business v1"
   export: "Inventario"
 
-2026-01-01 commodity SKU-MOUSE-01
+2020-01-01 commodity SKU-MOUSE-01
   name: "Mouse Ergonómico Inalámbrico"
   export: "Inventario"
 
-2026-03-28 commodity SKU-TEST-01
-  name: "Producto de Prueba API"
+2020-01-01 commodity SKU-MONITOR-24
+  name: "Monitor LED 24 Full HD"
+  export: "Inventario"
+
+2020-01-01 commodity SKU-TECLADO-MECH
+  name: "Teclado Mecánico RGB"
+  export: "Inventario"
+
+2020-01-01 commodity SKU-DISCO-SSD-1TB
+  name: "Disco SSD 1TB NVMe"
+  export: "Inventario"
+
+2020-01-01 commodity SKU-RAM-16GB
+  name: "Memoria RAM 16GB DDR4"
+  export: "Inventario"
+
+2020-01-01 commodity SKU-CAM-WEB-4K
+  name: "Cámara Web 4K Pro"
+  export: "Inventario"
+
+2020-01-01 commodity SKU-HEADSET-BT
+  name: "Audífonos Bluetooth"
+  export: "Inventario"
+
+2020-01-01 commodity SKU-CHAIR-OFFICE
+  name: "Silla de Oficina Ergonómica"
+  export: "Inventario"
+
+2020-01-01 commodity SKU-DESK-WOOD
+  name: "Escritorio de Madera Roble"
+  export: "Inventario"
+
+2020-01-01 commodity SKU-UPS-1000VA
+  name: "UPS 1000VA"
+  export: "Inventario"
+
+2020-01-01 commodity SKU-CABLE-HDMI-2M
+  name: "Cable HDMI 2.0 2 metros"
   export: "Inventario"

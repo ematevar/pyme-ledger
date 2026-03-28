@@ -1,0 +1,55 @@
+;; ===================================================================
+;; TRANSACCIONES HISTÓRICAS 2025
+;; ===================================================================
+
+2025-10-01 * "APERTURA DE CAPITAL"
+  Equity:PE:50:5011:Capital:Social                  -50000.00 PEN
+  Assets:PE:10:1041:CuentasCorrientes:BCP:Operativa  50000.00 PEN
+
+;; --- OCTUBRE 2025: Stock Inicial ---
+2025-10-05 * "COMPRA PROVEEDOR" "TEC-MAYORISTA"
+  ruc: "20123456781"
+  Expenses:PE:60:6011:Compras:Mercaderias        20 SKU-LAPTOP-01 { 2200.00 PEN }
+  Expenses:PE:60:6011:Compras:Mercaderias        50 SKU-MOUSE-01 { 45.00 PEN }
+  Liabilities:PE:40:4011:IGV:Fiscal              8325.00 PEN
+  Liabilities:PE:42:4212:Proveedores:Emitidas:Varios -54575.00 PEN
+  Assets:PE:20:2011:Mercaderias:Almacen:General  20 SKU-LAPTOP-01 { 2200.00 PEN }
+  Assets:PE:20:2011:Mercaderias:Almacen:General  50 SKU-MOUSE-01 { 45.00 PEN }
+  Income:PE:61:6111:Variacion:Mercaderias       -46250.00 PEN
+
+2025-10-15 * "VENTA CORPORATIVA" "CLIENTE ABC"
+  ruc: "20198765432"
+  Assets:PE:10:1011:Caja:Principal                   7080.00 PEN
+  Income:PE:70:7011:Ventas:Mercaderias:Local        -6000.00 PEN
+  Liabilities:PE:40:4011:IGV:Fiscal                 -1080.00 PEN
+  Expenses:PE:69:6911:CostoVentas:Mercaderias        4400.00 PEN
+  Assets:PE:20:2011:Mercaderias:Almacen:General     -2 SKU-LAPTOP-01 { 2200.00 PEN }
+
+;; --- NOVIEMBRE 2025: Operaciones Mixtas ---
+2025-11-10 * "PAGO DE ALQUILER"
+  ruc: "20234567891"
+  Expenses:PE:63:6311:Servicios:Alquileres           2000.00 PEN
+  Assets:PE:10:1041:CuentasCorrientes:BCP:Operativa -2000.00 PEN
+
+2025-11-20 * "VENTA POS" "Tienda Central"
+  ruc: "20287654321"
+  Assets:PE:10:1011:Caja:Principal                   3540.00 PEN
+  Income:PE:70:7011:Ventas:Mercaderias:Local        -3000.00 PEN
+  Liabilities:PE:40:4011:IGV:Fiscal                  -540.00 PEN
+  Expenses:PE:69:6911:CostoVentas:Mercaderias        2245.00 PEN
+  Assets:PE:20:2011:Mercaderias:Almacen:General     -1 SKU-LAPTOP-01 { 2200.00 PEN }
+  Assets:PE:20:2011:Mercaderias:Almacen:General     -1 SKU-MOUSE-01 { 45.00 PEN }
+
+;; --- DICIEMBRE 2025: Campaña Navideña (Ventas Altas) ---
+2025-12-15 * "VENTA MASIVA NAVIDAD"
+  ruc: "20345678912"
+  Assets:PE:10:1011:Caja:Principal                  17700.00 PEN
+  Income:PE:70:7011:Ventas:Mercaderias:Local       -15000.00 PEN
+  Liabilities:PE:40:4011:IGV:Fiscal                 -2700.00 PEN
+  Expenses:PE:69:6911:CostoVentas:Mercaderias       11225.00 PEN
+  Assets:PE:20:2011:Mercaderias:Almacen:General     -5 SKU-LAPTOP-01 { 2200.00 PEN }
+  Assets:PE:20:2011:Mercaderias:Almacen:General     -5 SKU-MOUSE-01 { 45.00 PEN }
+
+2025-12-28 * "PAGO SUELDOS"
+  Expenses:PE:62:6211:Sueldos:Salarios               5000.00 PEN
+  Assets:PE:10:1041:CuentasCorrientes:BCP:Operativa -5000.00 PEN

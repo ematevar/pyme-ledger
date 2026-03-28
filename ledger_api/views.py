@@ -84,13 +84,9 @@ class DashboardDataView(APIView):
     def get(self, request):
         try:
             dashboard_data = ledger.get_dashboard_data()
-            recent_transactions = ledger.get_recent_transactions(limit=5)
-            top_accounts = ledger.get_top_accounts(limit=5)
-            return Response({
-                "financial_data": dashboard_data["metrics"],
-                "evolution": dashboard_data["evolution"],
-                "recent_transactions": recent_transactions,
-                "top_accounts": top_accounts
-            }, status=status.HTTP_200_OK)
+            return Response(dashboard_data, status=status.HTTP_200_OK)
         except Exception as e:
+            import traceback
+            print(f"ERROR EN DASHBOARD API: {str(e)}")
+            print(traceback.format_exc())
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
