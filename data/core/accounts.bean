@@ -13,7 +13,7 @@
 
 ;; 10 - Efectivo y Equivalentes
 2026-01-01 open Assets:PE:10:1011:Caja:Principal                   PEN
-2026-01-01 open Assets:PE:10:1031:Efectivo:Transito:API_Ventas     PEN
+2026-01-01 open Assets:PE:10:1031:Efectivo:Transito:API-Ventas     PEN
 2026-01-01 open Assets:PE:10:1041:CuentasCorrientes:BCP:Operativa  PEN, USD
 
 ;; 12 - Cuentas por Cobrar Comerciales (Clientes)
@@ -68,7 +68,7 @@
 ;; 63 - Gastos de Servicios de Terceros
 2026-01-01 open Expenses:PE:63:6311:Servicios:Alquileres          PEN
 2026-01-01 open Expenses:PE:63:6341:Servicios:Mantenimiento       PEN
-2026-01-01 open Expenses:PE:63:6391:Servicios:Comisiones_API      PEN
+2026-01-01 open Expenses:PE:63:6391:Servicios:Comisiones-API      PEN
 
 ;; 69 - Costo de Ventas
 2026-01-01 open Expenses:PE:69:6911:CostoVentas:Mercaderias       PEN
@@ -85,5 +85,5 @@
 ;; Permite ver la rentabilidad por área en Fava.
 ;; ===================================================================
 
-2026-01-01 open Expenses:PE:94:Gastos_Administrativos            PEN
-2026-01-01 open Expenses:PE:95:Gastos_Ventas                    PEN
+2026-01-01 open Expenses:PE:94:Gastos-Administrativos            PEN
+2026-01-01 open Expenses:PE:95:Gastos-Ventas                    PEN

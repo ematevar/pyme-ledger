@@ -1,7 +1,7 @@
 import datetime
 from beancount import loader
 from beancount.core import data
-from beancount.query import query
+from beanquery import query
 import os
 
 class PymeLedgerAPI:
@@ -17,13 +17,13 @@ class PymeLedgerAPI:
     def get_inventory(self):
         """Consulta el stock actual y su valorización desde Beancount."""
         entries, _, options = loader.load_file(self.main_bean_path)
-        bql = "SELECT currency, sum(number) WHERE account ~ 'Assets:PE:20:Mercaderias' GROUP BY 1"
+        bql = "SELECT currency, sum(number) WHERE account ~ 'Assets:PE:20' GROUP BY 1"
         _, result_rows = query.run_query(entries, options, bql)
         
         inventory = []
         for row in result_rows:
             sku = str(row[0])
-            if "SKU_" in sku:
+            if "SKU-" in sku: # Cambiado de SKU_ a SKU- para consistencia
                 inventory.append({
                     "sku": sku,
                     "quantity": float(row[1])
@@ -34,6 +34,8 @@ class PymeLedgerAPI:
         """Registra un nuevo SKU en el sistema."""
         commodity_file = os.path.join(os.path.dirname(self.main_bean_path), "core/commodities.bean")
         date_str = datetime.date.today().strftime("%Y-%m-%d")
+        # Reemplazar guiones bajos por guiones en el SKU para Beancount
+        sku = sku.replace("_", "-")
         entry = f'\n{date_str} commodity {sku}\n  name: "{name}"\n  export: "Inventario"\n'
         
         with open(commodity_file, "a", encoding="utf-8") as f:
@@ -41,16 +43,15 @@ class PymeLedgerAPI:
         return True
 
     def record_inventory_purchase(self, purchase_data):
-        """
-        Registra el ingreso de mercadería al almacén (Compra).
-        purchase_data = {
-            'supplier_ruc': '20100200300',
-            'invoice_no': 'F001-0050',
-            'items': [{'sku': 'SKU_LAPTOP_01', 'qty': 10, 'cost_unit': 2500.00}]
-        }
-        """
+        """Registra el ingreso de mercadería al almacén (Compra)."""
         date_str = datetime.date.today().strftime("%Y-%m-%d")
-        total_net = sum(item['cost_unit'] * item['qty'] for item in purchase_data['items'])
+        items = []
+        for item in purchase_data['items']:
+            item_clean = item.copy()
+            item_clean['sku'] = item['sku'].replace("_", "-")
+            items.append(item_clean)
+
+        total_net = sum(item['cost_unit'] * item['qty'] for item in items)
         igv = total_net * 0.18
         total_full = total_net + igv
         
@@ -59,16 +60,13 @@ class PymeLedgerAPI:
         entry += f'  doc_type: "01"\n'
         entry += f'  invoice: "{purchase_data["invoice_no"]}"\n'
         
-        # --- Gasto por Naturaleza (60) ---
-        for item in purchase_data['items']:
+        for item in items:
             entry += f'  Expenses:PE:60:6011:Compras:Mercaderias        {item["qty"]} {item["sku"]} {{ {item["cost_unit"]:.2f} PEN }}\n'
         
         entry += f'  Liabilities:PE:40:4011:IGV:Fiscal              {igv:.2f} PEN\n'
         entry += f'  Liabilities:PE:42:4212:Proveedores:Emitidas   -{total_full:.2f} PEN\n'
         
-        # --- Destino al Almacén (20 vs 61) ---
-        for item in purchase_data['items']:
-            total_item_cost = item['cost_unit'] * item['qty']
+        for item in items:
             entry += f'  Assets:PE:20:2011:Mercaderias:Almacen:General  {item["qty"]} {item["sku"]} {{ {item["cost_unit"]:.2f} PEN }}\n'
         entry += f'  Income:PE:61:6111:Variacion:Mercaderias       -{total_net:.2f} PEN\n'
 
@@ -82,20 +80,21 @@ class PymeLedgerAPI:
         bql = "SELECT account, sum(position) WHERE account ~ 'Assets:PE:10' GROUP BY 1"
         _, result_rows = query.run_query(entries, options, bql)
         
-        balances = {str(row[0]): str(row[1]) for row in result_rows}
+        balances = {}
+        for row in result_rows:
+            balances[str(row[0])] = str(row[1])
         return balances
 
     def record_pos_sale(self, sale_data):
-        """
-        Registra una venta desde el POS.
-        sale_data = {
-            'customer_ruc': '20123456789',
-            'invoice_no': 'F001-0001',
-            'items': [{'sku': 'SKU_LAPTOP_01', 'qty': 1, 'price': 3500.00, 'cost': 2500.00}]
-        }
-        """
+        """Registra una venta desde el POS."""
         date_str = datetime.date.today().strftime("%Y-%m-%d")
-        total_net = sum(item['price'] * item['qty'] for item in sale_data['items'])
+        items = []
+        for item in sale_data['items']:
+            item_clean = item.copy()
+            item_clean['sku'] = item['sku'].replace("_", "-")
+            items.append(item_clean)
+
+        total_net = sum(item['price'] * item['qty'] for item in items)
         igv = total_net * 0.18
         total_full = total_net + igv
         
@@ -103,16 +102,11 @@ class PymeLedgerAPI:
         entry += f'  ruc: "{sale_data["customer_ruc"]}"\n'
         entry += f'  doc_type: "01"\n'
         entry += f'  invoice: "{sale_data["invoice_no"]}"\n'
-        
-        # 1. Ingreso de Dinero (A Caja o Cuenta de Puente)
-        entry += f'  Assets:PE:10:1031:Efectivo:Transito:API_Ventas     {total_full:.2f} PEN\n'
-        
-        # 2. Ventas e IGV
+        entry += f'  Assets:PE:10:1031:Efectivo:Transito:API-Ventas     {total_full:.2f} PEN\n'
         entry += f'  Income:PE:70:7011:Ventas:Mercaderias:Local        -{total_net:.2f} PEN\n'
         entry += f'  Liabilities:PE:40:4011:IGV:Fiscal                  -{igv:.2f} PEN\n'
         
-        # 3. Costo de Ventas y Salida de Inventario por cada Item
-        for item in sale_data['items']:
+        for item in items:
             total_cost = item['cost'] * item['qty']
             entry += f'  Expenses:PE:69:6911:CostoVentas:Mercaderias    {total_cost:.2f} PEN\n'
             entry += f'  Assets:PE:20:2011:Mercaderias:Almacen:General  -{item["qty"]} {item["sku"]} {{ {item["cost"]:.2f} PEN }}\n'
@@ -120,8 +114,3 @@ class PymeLedgerAPI:
         with open(self.ledger_file, "a", encoding="utf-8") as f:
             f.write(entry)
         return True
-
-# --- EJEMPLO DE USO PARA DJANGO ---
-if __name__ == "__main__":
-    api = PymeLedgerAPI("../data/main.beancount")
-    print("Inventario Actual:", api.get_inventory())

@@ -10,3 +10,11 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
     command: python manage.py runserver 0.0.0.0:8000
+
+  fava:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "5001:5000"
+    command: fava --host 0.0.0.0 /app/data/main.beancount

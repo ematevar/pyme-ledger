@@ -11,11 +11,11 @@
   doc_type: "01"
   invoice: "F001-00050"
   ; --- Gasto por Naturaleza ---
-  Expenses:PE:60:6011:Compras:Mercaderias        10 SKU_LAPTOP_01 {2500.00 PEN}
+  Expenses:PE:60:6011:Compras:Mercaderias        10 SKU-LAPTOP-01 {2500.00 PEN}
   Liabilities:PE:40:4011:IGV:Fiscal              4500.00 PEN
-  Liabilities:PE:42:4212:Proveedores:Emitidas   -29500.00 PEN
+  Liabilities:PE:42:4212:Proveedores:Emitidas:Varios   -29500.00 PEN
   ; --- Destino al Almacén (Obligatorio PCGE) ---
-  Assets:PE:20:2011:Mercaderias:Almacen:General  10 SKU_LAPTOP_01 {2500.00 PEN}
+  Assets:PE:20:2011:Mercaderias:Almacen:General  10 SKU-LAPTOP-01 {2500.00 PEN}
   Income:PE:61:6111:Variacion:Mercaderias       -25000.00 PEN
 
 ;; -------------------------------------------------------------------
@@ -27,10 +27,9 @@
   doc_type: "01"
   invoice: "F001-00001"
   ; --- Registro del Ingreso ---
-  Assets:PE:12:1212:Clientes:Emitidas            8260.00 PEN
+  Assets:PE:12:1212:Clientes:Emitidas:Local      8260.00 PEN
   Income:PE:70:7011:Ventas:Mercaderias:Local    -7000.00 PEN
   Liabilities:PE:40:4011:IGV:Fiscal             -1260.00 PEN
   ; --- COSTO DE VENTAS (Kardex Valorizado) ---
-  ; Beancount sabe que costaron S/2500 c/u automáticamente (FIFO).
   Expenses:PE:69:6911:CostoVentas:Mercaderias    5000.00 PEN
-  Assets:PE:20:2011:Mercaderias:Almacen:General  -2 SKU_LAPTOP_01 {2500.00 PEN}
+  Assets:PE:20:2011:Mercaderias:Almacen:General  -2 SKU-LAPTOP-01 {2500.00 PEN}

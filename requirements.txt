@@ -1,5 +1,8 @@
 django
 djangorestframework
 beancount
+beanquery
 python-dateutil
 django-cors-headers
+requests
+fava

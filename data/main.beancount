@@ -2,6 +2,8 @@
 ;; PYME LEDGER - LIBRO PRINCIPAL
 ;; ===================================================================
 
+plugin "beancount.plugins.auto_accounts"
+
 ;; 1. Definiciones de Monedas y Productos (Kardex)
 include "core/commodities.bean"
 

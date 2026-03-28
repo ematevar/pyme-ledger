@@ -5,18 +5,18 @@
 option "operating_currency" "PEN"
 option "operating_currency" "USD"
 
-;; Configuración de Inventario (FIFO por defecto en Beancount)
-;; Esto permite que si compras a S/10 y luego a S/12, Beancount sepa 
-;; exactamente cuánto vale tu stock restante.
-
 2026-01-01 commodity PEN
   name: "Sol Peruano"
   precision: 2
 
-2026-01-01 commodity SKU_LAPTOP_01
+2026-01-01 commodity SKU-LAPTOP-01
   name: "Laptop Pro Business v1"
   export: "Inventario"
 
-2026-01-01 commodity SKU_MOUSE_01
+2026-01-01 commodity SKU-MOUSE-01
   name: "Mouse Ergonómico Inalámbrico"
+  export: "Inventario"
+
+2026-03-28 commodity SKU-TEST-01
+  name: "Producto de Prueba API"
   export: "Inventario"

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from ledger_api.views import (
+    ApiIndexView,
     InventoryListView, 
     ProductCreateView, 
     InventoryPurchaseView, 
@@ -10,6 +11,8 @@ from ledger_api.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # Index de API
+    path('api/', ApiIndexView.as_view(), name='api-index'),
     # Inventario y Productos
     path('api/inventory/', InventoryListView.as_view(), name='api-inventory'),
     path('api/inventory/product/', ProductCreateView.as_view(), name='api-product-create'),

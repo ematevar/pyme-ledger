@@ -4,10 +4,28 @@ from rest_framework import status
 from scripts.ledger_api import PymeLedgerAPI
 import os
 
+# Ruta al motor de Beancount
 BEAN_PATH = os.path.join(os.getcwd(), "data/main.beancount")
 ledger = PymeLedgerAPI(BEAN_PATH)
 
+class ApiIndexView(APIView):
+    """GET: Confirma que la API está arriba y conectada al Ledger."""
+    def get(self, request):
+        return Response({
+            "status": "online",
+            "system": "Pyme Ledger POS MVP",
+            "ledger_path": BEAN_PATH,
+            "endpoints": [
+                "/api/inventory/",
+                "/api/inventory/product/",
+                "/api/inventory/purchase/",
+                "/api/pos/sale/",
+                "/api/finance/cash/"
+            ]
+        })
+
 class InventoryListView(APIView):
+    """GET: Retorna el stock actual valorizado desde Beancount."""
     def get(self, request):
         try:
             inventory = ledger.get_inventory()
@@ -41,6 +59,7 @@ class InventoryPurchaseView(APIView):
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class POSSaleView(APIView):
+    """POST: Registra una venta en el POS y actualiza el Ledger."""
     def post(self, request):
         sale_data = request.data
         if not all(k in sale_data for k in ['customer_ruc', 'invoice_no', 'items']):
@@ -52,6 +71,7 @@ class POSSaleView(APIView):
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class CashBalanceView(APIView):
+    """GET: Retorna el saldo en Caja y Bancos."""
     def get(self, request):
         try:
             balances = ledger.get_cash_balances()

@@ -1,0 +1,21 @@
+;; Transacciones generadas por API POS
+
+2026-03-28 * "COMPRA INVENTARIO" "Factura F001-TEST"
+  ruc: "20111222333"
+  doc_type: "01"
+  invoice: "F001-TEST"
+  Expenses:PE:60:6011:Compras:Mercaderias        10 SKU-TEST-01 { 100.00 PEN }
+  Liabilities:PE:40:4011:IGV:Fiscal              180.00 PEN
+  Liabilities:PE:42:4212:Proveedores:Emitidas   -1180.00 PEN
+  Assets:PE:20:2011:Mercaderias:Almacen:General  10 SKU-TEST-01 { 100.00 PEN }
+  Income:PE:61:6111:Variacion:Mercaderias       -1000.00 PEN
+
+2026-03-28 * "VENTA POS" "Factura F001-SALE"
+  ruc: "20999888777"
+  doc_type: "01"
+  invoice: "F001-SALE"
+  Assets:PE:10:1031:Efectivo:Transito:API-Ventas     354.00 PEN
+  Income:PE:70:7011:Ventas:Mercaderias:Local        -300.00 PEN
+  Liabilities:PE:40:4011:IGV:Fiscal                  -54.00 PEN
+  Expenses:PE:69:6911:CostoVentas:Mercaderias    200.00 PEN
+  Assets:PE:20:2011:Mercaderias:Almacen:General  -2 SKU-TEST-01 { 100.00 PEN }
