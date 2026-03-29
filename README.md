@@ -1,39 +1,65 @@
-# KIPU - PYME - ERP Contable 
+# ₿ PYME-Ledger Pro
 
-Sistema de contabilidad profesional para micro y pequeñas empresas (PYMES) basado en Beancount y el Plan Contable General Empresarial (PCGE) peruano.
+[![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/Django-5.0+-green.svg)](https://www.djangoproject.com/)
+[![Beancount](https://img.shields.io/badge/Engine-Beancount-red.svg)](https://beancount.github.io/)
 
-## Diferenciales para PYMES
+**PYME-Ledger Pro** es un sistema de Punto de Venta (POS) e Inteligencia Financiera diseñado específicamente para el mercado peruano. Combina la agilidad de una interfaz moderna con el rigor de un motor contable de **Doble Entrada en Texto Plano**.
 
-Este modelo incluye el **Ciclo de Operaciones**:
-1. **Compras (60):** Registro de mercaderías con IGV (40).
-2. **Existencias (20):** Control de inventario en almacén.
-3. **Ventas (70):** Generación de ingresos operativos.
-4. **Costo de Ventas (69):** Cálculo automático del margen bruto.
+## 🎯 Propuesta de Única de Valor
+A diferencia de los POS tradicionales que guardan datos en bases cerradas, PYME-Ledger utiliza **Beancount**, permitiendo que cada venta se convierta automáticamente en un asiento contable auditable (PCGE), portable y eterno.
 
-## Estándar de Cuentas PYME-PCGE
+---
 
-### 1) Activos Realizables e Inmovilizados
-- **Mercaderías (20):** `Assets:PE:20:2011:Mercaderias:Almacen:ID`
-- **Equipos (33):** `Assets:PE:33:3331:Maquinaria:Equipo:UsoInterno`
+## 🏗️ Arquitectura del Sistema (Clean Architecture)
+El proyecto ha sido refactorizado siguiendo patrones de diseño robustos para garantizar modularidad y escalabilidad:
 
-### 2) Tributos y Deudas
-- **Tributos por Pagar (40):** `Liabilities:PE:40:4011:IGV:Pendiente`
-- **Proveedores (42):** `Liabilities:PE:42:4212:Proveedores:RazonSocial:Factura`
+- **Interface Layer (api/):** Endpoints REST que gestionan la comunicación con el cliente.
+- **Application Layer (services/):** Lógica de negocio pura (Contabilidad e Inventario).
+- **Infrastructure Layer (core/):** Wrapper del motor Beancount que aísla la complejidad técnica de los archivos físicos.
+- **Data Layer (data/):** Repositorio de archivos `.bean` (La base de datos legible por humanos).
 
-### 3) Resultados Operativos
-- **Ventas (70):** `Income:PE:70:7011:Ventas:Canal:Producto`
-- **Costo de Ventas (69):** `Expenses:PE:69:6911:CostoVentas:Mercaderias`
+---
 
-## Flujo de Trabajo (Micro-SaaS)
+## 📂 Estructura de Carpetas
+```text
+pyme-ledger/
+├── data/               # Archivos contables Beancount (PCGE Perú)
+├── ledger_api/         # Aplicación núcleo del sistema
+│   ├── api/            # Vistas y controladores REST
+│   ├── services/       # Servicios de negocio (Accounting, Inventory)
+│   └── core/           # Wrapper técnico del motor Beancount
+├── templates/          # Frontend React SPA (Single File Architecture)
+├── pyme_ledger_pos/    # Configuración global del servidor Django
+├── Dockerfile          # Definición del contenedor de aplicación
+└── docker-compose.yml  # Orquestación de servicios (Web + Fava)
+```
 
-1. **Venta al Contado:**
-   - Cargo a Caja (10)
-   - Abono a Ventas (70) e IGV (40)
-2. **Reconocimiento de Costo:**
-   - Cargo a Costo de Ventas (69)
-   - Abono a Mercaderías (20)
+---
 
-## Estructura de Datos
-- `data/core/accounts.bean`: Catálogo de cuentas PYME.
-- `data/core/commodities.bean`: Monedas y activos.
-- `data/ledger/2026/`: Libros de ventas, compras y diario.
+## 🚀 Instalación y Despliegue
+
+### Requisitos
+- Docker y Docker Compose
+
+### Pasos
+1. Clona el repositorio.
+2. Ejecuta la orquestación:
+   ```bash
+   docker compose up -d
+   ```
+3. Accede a las interfaces:
+   - **Frontend Principal:** [http://localhost:8000](http://localhost:8000)
+   - **Fava (Analytics Avanzado):** [http://localhost:5001](http://localhost:5001)
+
+---
+
+## 📈 Roadmap de Desarrollo
+- [x] Refactorización a Arquitectura de Capas.
+- [x] Dashbord con Utilidad Neta y Valorización de Inventario.
+- [ ] **Fase 2:** Integración con Gemini IA para consultoría financiera automática.
+- [ ] **Fase 3:** Módulo de Facturación Electrónica (SUNAT).
+- [ ] **Fase 4:** Aplicación móvil nativa para el POS.
+
+---
+*Desarrollado con un enfoque en la soberanía de datos y la transparencia financiera.*

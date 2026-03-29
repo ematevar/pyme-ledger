@@ -22,7 +22,6 @@ include "core/accounts.bean"
 
 ;; 3. Registros de Transacciones por Año
 include "ledger/2025/transactions.bean"
-include "ledger/2026/inventory_examples.bean"
 include "ledger/2026/transactions.bean"
 
 ;; 4. Precios de Mercado (Opcional)

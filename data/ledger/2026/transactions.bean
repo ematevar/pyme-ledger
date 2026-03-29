@@ -77,3 +77,11 @@
   Liabilities:PE:40:4011:IGV:Fiscal         -10.53 PEN
   Expenses:PE:69:6911:CostoVentas            45.00 PEN
   Assets:PE:20:2011:Mercaderias             -1 SKU-MOUSE-01 { 45.00 PEN }
+
+2026-03-28 * "VENTA POS" "Doc: F002-558"
+  customer: "20484547"
+  Assets:PE:10:1011:Caja:Efectivo             97.50 PEN
+  Income:PE:70:7011:Ventas:Mercaderias     -79.95 PEN
+  Liabilities:PE:40:4011:IGV:Fiscal         -17.55 PEN
+  Expenses:PE:69:6911:CostoVentas            75.00 PEN
+  Assets:PE:20:2011:Mercaderias             -5 SKU-CABLE-HDMI-2M { 15.00 PEN }
