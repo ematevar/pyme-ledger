@@ -1,28 +1,18 @@
+"""
+Configuración global de rutas para PYME-Ledger Pro.
+Centraliza el acceso a la administración, la API y el Frontend.
+"""
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.views.generic import TemplateView
-from ledger_api.views import (
-    ApiIndexView,
-    InventoryListView, 
-    ProductCreateView, 
-    InventoryPurchaseView, 
-    POSSaleView, 
-    CashBalanceView,
-    DashboardDataView
-)
 
 urlpatterns = [
+    # Administración de Django
     path('system-admin/', admin.site.urls),
     
-    # API
-    path('api/', ApiIndexView.as_view()),
-    path('api/dashboard/', DashboardDataView.as_view()),
-    path('api/inventory/', InventoryListView.as_view()),
-    path('api/inventory/product/', ProductCreateView.as_view()),
-    path('api/inventory/purchase/', InventoryPurchaseView.as_view()),
-    path('api/pos/sale/', POSSaleView.as_view()),
-    path('api/finance/cash/', CashBalanceView.as_view()),
+    # Módulo de API Contable (ledger_api)
+    path('api/', include('ledger_api.urls')),
     
-    # Frontend Simple (Único archivo)
-    path('', TemplateView.as_view(template_name='index.html')),
+    # Frontend Single Page Application (React)
+    path('', TemplateView.as_view(template_name='index.html'), name='frontend'),
 ]
